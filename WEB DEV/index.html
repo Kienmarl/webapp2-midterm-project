@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="signup-container">
+        <h1>Sign In</h1>
+
+        <form id="loginPage"> 
+            <label>Username</label>
+            <input type="text" id="username" placeholder="" required>
+            <label>Password</label>
+            <input type="password" id="password" placeholder="" required>
+            <button id="signin">Log In</button>
+        </form>
+    </section>
+</body>
+<script>
+    document.getElementById("loginPage").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+       fetch("https://jsonplaceholder.typicode.com/users")
+            .then(response => response.json())
+            .then(users => {
+                const user = users.find(user => user.username === username);
+
+                if (user){
+                    // alert("Login Success");
+                    if (password === "hulaanmo123") {
+                        window.location.href = "post1.html";
+                        // alert("Login Success");
+                    } else {
+                        alert("Incorrect Password");
+                    }
+                } else {
+                    // alert("Incorrect credentials");
+                    alert("User not Found");
+                }
+                // alert(user);
+            })
+            .catch(error => alert("Error fetching users:", error));
+    });
+</script>
+</html>
